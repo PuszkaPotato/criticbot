@@ -1,8 +1,11 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js';
+import { createRequire } from 'module';
+
 import { getRandomFunFact } from './openai.js';
 import { getRandomRoast } from './openai.js';
 
-import config from './config.json' with { type: 'json' };
+const require = createRequire(import.meta.url);
+const config = require('./config.json');
 
 const { bot_token, listen_channel_id, guild_id, victim_id } = config;
 

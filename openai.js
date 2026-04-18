@@ -1,5 +1,8 @@
 import OpenAI from 'openai';
-import config from './config.json' with { type: 'json' };
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const config = require('./config.json');
 
 const { openai_api_key, openai_model } = config;
 
