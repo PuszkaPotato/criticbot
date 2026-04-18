@@ -1,0 +1,9 @@
+{
+    "bot_token": "Your bot token here",
+    "listen_channel_id": "Your channel ID here",
+    "guild_id": "Your guild ID here",
+    "victim_id": "Your Victim's ID here",
+
+    "openai_api_key": "Your OpenAI API key here",
+    "openai_model": "gpt-4.1"
+}
