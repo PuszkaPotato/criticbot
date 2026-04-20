@@ -57,6 +57,19 @@ client.on(Events.MessageCreate, async (message) => {
     }
 
     // Protect the grace and honour of the Empress Weronika at all costs, even if it means sacrificing your own dignity and sanity.
+    if (message.reference && message.reference.messageId) {
+        try {
+            const referencedMessage = await message.channel.messages.fetch(message.reference.messageId);
+            if (referencedMessage.author.id === empress_id) {
+                const response = await protectTheEmpress(message, craziness.get());
+                message.reply(response);
+                craziness.increase(1);
+            }
+        } catch (error) {
+            console.error('Error fetching referenced message:', error);
+        }
+    }
+
     if (empressPattern.test(message.content) && message.author.id !== empress_id) {
         const response = await protectTheEmpress(message, craziness.get());
         message.reply(response);
