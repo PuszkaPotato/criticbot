@@ -4,6 +4,10 @@
     "guild_id": "Your guild ID here",
     "victim_id": "Your Victim's ID here",
 
+    "crazinessLevel": 0,
+    "empress_id": null,
+    "lastEmpressMessageDate": null,
+
     "openai_api_key": "Your OpenAI API key here",
     "openai_model": "gpt-4.1"
 }

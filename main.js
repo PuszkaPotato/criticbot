@@ -1,11 +1,19 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 import { createRequire } from 'module';
 
-import { getRandomFunFact } from './openai.js';
+import { getRandomFunFact, praiseTheDayInHerName, protectTheEmpress } from './openai.js';
 import { getRandomRoast } from './openai.js';
+import * as craziness from './craziness.js';
+import * as messageTracker from './messageTracker.js';
 
 const require = createRequire(import.meta.url);
 const config = require('./config.json');
+
+const empress_id = config.empress_id;
+
+const empressPattern = new RegExp(
+    `\\b(Weronika|Wera|Weronica|Weronicka|Veronica|Veronika|Vee|weewee|Wee|Veewee|our empress|the empress)\\b|<@${config.empress_id}>`, 'i'
+);
 
 const { bot_token, listen_channel_id, guild_id, victim_id } = config;
 
@@ -39,6 +47,20 @@ client.on(Events.MessageCreate, async (message) => {
             }
             message.reply(funfact);
         }
+    }
+
+    // Praise the day in her name.
+    if (message.author.id === empress_id && messageTracker.isFirstMessageToday()) {
+        const response = await praiseTheDayInHerName(message);
+        message.reply(response);
+        messageTracker.updateEmpressMessageDate();
+    }
+
+    // Protect the grace and honour of the Empress Weronika at all costs, even if it means sacrificing your own dignity and sanity.
+    if (empressPattern.test(message.content) && message.author.id !== empress_id) {
+        const response = await protectTheEmpress(message, craziness.get());
+        message.reply(response);
+        craziness.increase(1);
     }
 });
 

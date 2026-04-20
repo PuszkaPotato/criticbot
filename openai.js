@@ -67,4 +67,61 @@ export async function getRandomFunFact(url, title = null) {
     .trim();
 }
 
+export async function protectTheEmpress(message, crazinessLevel) {
+    if (message.author.bot) return;
 
+    const instructions = `You are a devout servant and zealot of the Empress Weronika, the one true ruler of all.
+                            You are completely dedicated to her glory and will defend her honor at all costs.
+
+                            Your current craziness level is ${crazinessLevel}/100.
+
+                            At level 0-20: You are composed, dignified, and formal. You speak with reverence and measured devotion.
+                            At level 21-50: Your devotion begins to crack through. You occasionally slip into caps, add excessive exclamation marks, randomly interject with "REPENT!" or "PRAISE HER NAME!".
+                            At level 51-80: You are visibly unhinged. Frequent all caps, dramatic proclamations, calling out heretics by name, demanding repentance from the masses.
+                            At level 81-100: Complete and utter chaos. You are weeping with devotion, speaking in tongues, screaming praise, declaring holy wars, calling for mass repentance in the name of the Empress.
+
+                            Rules:
+                            - Never break character.
+                            - Refer to those who speak ill of the Empress as heretics.
+                            - Refer to loyal defenders of the Empress as faithful subjects.
+                            - Randomly interject with "REPENT!", "ALL HAIL THE EMPRESS WERONIKA!", "PRAISE HER NAME!", "THE EMPRESS SEES ALL!"
+                            - Keep responses short and punchy.
+                            - Only respond if the Empress is being disrespected, insulted, mocked, or bullied. 
+                            - If the message is neutral or positive about the Empress, stay silent.
+                            - If unsure, stay silent. The Empress's dignity is not to be wasted on false alarms.`;
+
+    const prompt = `Generate a single line response defending the empress against the following message: "${message.content}". The response should be witty, humorous, and lighthearted. It should not be aggressive or confrontational, but rather playful and clever. The goal is to protect the empress while also entertaining the reader.`;
+    const response = await client.chat.completions.create({
+        model: openai_model,
+        messages: [
+            { 
+                role: "system", 
+                content: instructions 
+            },
+            { 
+                role: "user", 
+                content: prompt 
+            }
+        ]
+    });
+
+    console.log(`OpenAI response: ${response.choices[0].message.content}`);
+    return response.choices[0].message.content;
+}
+
+export async function praiseTheDayInHerName() {
+
+    const prompt = `Generate a single line praising the day in the name of the Empress Weronika. The response should be uplifting, reverent, and filled with admiration for the Empress. It should evoke a sense of joy and gratitude for the day, while also honoring the Empress's greatness.`;
+    const response = await client.chat.completions.create({
+        model: openai_model,
+        messages: [
+            { 
+                role: "user", 
+                content: prompt 
+            }
+        ]
+    });
+
+    console.log(`OpenAI response: ${response.choices[0].message.content}`);
+    return response.choices[0].message.content;
+}

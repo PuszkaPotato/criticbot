@@ -1,5 +1,5 @@
 {
-  "name": "Critic Bot",
+  "name": "criticbot",
   "version": "1.0.0",
   "description": "A Discord bot that gives fun facts about songs, and also roasts a specific user.",
   "type": "module",
