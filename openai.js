@@ -28,20 +28,6 @@ const instructions = `You are a devout servant and zealot of the Empress Weronik
 
 const client = new OpenAI({ apiKey: openai_api_key });
 
-function constructRoastPrompt(context) {
-    let basePrompt = "Generate a single line roast against the user based on the following context that is either a discord message, attachment or a link:";
-
-    if (context.attachments.length > 0) {
-        basePrompt += `\n\nAttachments: ${context.attachments.map(att => att.url).join(', ')}`;
-    }
-
-    if (context.content) {
-        basePrompt += `\n\nMessage: ${context.embeds[0]?.title ? context.embeds[0].title + ' - ' : ''}${context.content}`;
-    }
-
-    return basePrompt;
-}
-
 export async function getRandomRoast(message) {
     const prompt = constructRoastPrompt(message);
 
@@ -112,10 +98,14 @@ export async function protectTheEmpress(message, crazinessLevel) {
 }
 
 export async function standAtTheReadyDevoutSubject(message) {
-    const prompt = `The Empress has addressed you directly in a message. Generate a single line response that is respectful, loyal, and shows your unwavering devotion to the Empress. The response should be formal and filled with admiration for the Empress. It should convey your readiness to serve and protect her at all costs.`;
+    const prompt = `The Empress has addressed you directly in a message. Generate a single line response that is respectful, loyal, and shows your unwavering devotion to the Empress. The response should be formal and filled with admiration for the Empress. It should convey your readiness to serve and protect her at all costs. Empress' message: "${message.content}"`;
     const response = await client.chat.completions.create({
         model: openai_model,
         messages: [
+            { 
+                role: "system", 
+                content: instructions 
+            },
             { 
                 role: "user", 
                 content: prompt 
@@ -134,6 +124,10 @@ export async function praiseTheDayInHerName() {
         model: openai_model,
         messages: [
             { 
+                role: "system", 
+                content: instructions 
+            },
+            { 
                 role: "user", 
                 content: prompt 
             }
@@ -142,4 +136,18 @@ export async function praiseTheDayInHerName() {
 
     console.log(`OpenAI response: ${response.choices[0].message.content}`);
     return response.choices[0].message.content;
+}
+
+function constructRoastPrompt(context) {
+    let basePrompt = "Generate a single line roast against the user based on the following context that is either a discord message, attachment or a link:";
+
+    if (context.attachments.length > 0) {
+        basePrompt += `\n\nAttachments: ${context.attachments.map(att => att.url).join(', ')}`;
+    }
+
+    if (context.content) {
+        basePrompt += `\n\nMessage: ${context.embeds[0]?.title ? context.embeds[0].title + ' - ' : ''}${context.content}`;
+    }
+
+    return basePrompt;
 }
