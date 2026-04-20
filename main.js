@@ -17,7 +17,7 @@ const empressPattern = new RegExp(
 
 const { bot_token, listen_channel_id, guild_id, victim_id } = config;
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers] });
 
 if (!bot_token || !listen_channel_id || !guild_id) {
     console.error('Please set the bot_token, listen_cchannel_id, and guild_id in config.json');
