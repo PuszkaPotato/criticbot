@@ -1,7 +1,7 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 import { createRequire } from 'module';
 
-import { getRandomFunFact, praiseTheDayInHerName, protectTheEmpress } from './openai.js';
+import { getRandomFunFact, praiseTheDayInHerName, protectTheEmpress, standAtTheReadyDevoutSubject } from './openai.js';
 import { getRandomRoast } from './openai.js';
 import * as craziness from './craziness.js';
 import * as messageTracker from './messageTracker.js';
