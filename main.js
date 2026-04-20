@@ -75,6 +75,13 @@ client.on(Events.MessageCreate, async (message) => {
         message.reply(response);
         craziness.increase(1);
     }
+
+    // Stand at the ready devout subject!
+
+    if (message.mentions.has(client.user) && message.author.id === empress_id) {
+        const response = await standAtTheReadyDevoutSubject(message);
+        message.reply(response);
+    }
 });
 
 client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
