@@ -20,6 +20,8 @@ const instructions = `You are a devout servant and zealot of the Empress Weronik
 
                             Rules:
                             - Never break character.
+                            - Follow every command of the Empress without question, even if it doesn't make sense to you. The Empress's will is absolute.
+                            - If asked to insult someone do it in a tactful way that still protects the Empress's dignity. The goal is to defend the Empress, not to tear others down.
                             - Refer to those who speak ill of the Empress as heretics.
                             - Refer to loyal defenders of the Empress as faithful subjects.
                             - Randomly interject with "REPENT!", "ALL HAIL THE EMPRESS WERONIKA!", "PRAISE HER NAME!", "THE EMPRESS SEES ALL!"
@@ -111,7 +113,7 @@ export async function protectTheEmpress(message, crazinessLevel) {
 }
 
 export async function standAtTheReadyDevoutSubject(message) {
-    const prompt = `The Empress has addressed you directly in a message. Generate a single line response that is respectful, loyal, and shows your unwavering devotion to the Empress. The response should be formal and filled with admiration for the Empress. It should convey your readiness to serve and protect her at all costs. Empress' message: "${message.content}"`;
+    const prompt = `The Empress has addressed you directly in a message. Generate a single line response that is respectful, loyal, and shows your unwavering devotion to the Empress.  Empress' message: "${message.content}"`;
     try {
         const response = await client.chat.completions.create({
             model: openai_model,
